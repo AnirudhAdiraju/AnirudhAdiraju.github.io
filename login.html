@@ -1,114 +1,165 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <base target="_top">
+    <link href="https://fonts.googleapis.com/css?family=Orienta&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        * {
-            text-align: center;
-            font-family: "Montserrat"
-        }
-        body {
-   
-            
-        }
-        .modal {
-          display: none; 
-          position: fixed; 
-          z-index: 1; 
-          left: 0;
-          top: 0;
-          width: 100%; 
-          height: 100%; 
-          overflow: auto; 
-          background-color: rgb(0,0,0); 
-          background-color: rgba(0,0,0,0.4); 
-
-        }
-
-        
-        .modal-content {
-          background-color: #fefefe;
-          margin: 15% auto; 
-          padding: 20px;
-          border: 1px solid #888;
-          width: 80%; 
-          border-radius: 30;
-        }
-
-        
-        .close {
-          color: #aaa;
-          float: right;
-          font-size: 28px;
-          font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-          color: black;
-          text-decoration: none;
-          cursor: pointer;
-        }
-        label {
-            font-family: "Montserrat";
-
-        }
-
+      html{
+        height: 100%;
+      }
+    body{
+      font-family: 'Orienta', open sans;
+      background: rgba(91, 136, 216, 1.0);
+      background: -webkit-linear-gradient(bottom right, rgba(91, 136, 216, 1.0), rgba(224, 215, 208, 1.0));
+      background: -moz-linear-gradient(bottom right, rgba(91, 136, 216, 1.0), rgba(224, 215, 208, 1.0));
+      background: linear-gradient(to top left, rgba(91, 136, 216, 1.0), rgba(224, 215, 208, 1.0));
+      height: 100%;
+      font-size: 3vmin;
+    }
+    .mainBod{
+      display: grid;
+      grid-template-columns: 50% 50%;
+      position: relative;
+      text-align: center;
+      height: 100%;
+    }
+    .item1{
+      padding: 3%;
+      border-right-width: 1px;
+      background-color: whitesmoke;
+      color: darkgrey;
+    }
+    .item2{
+      margin-top: 25vmin;
+      margin-bottom: 25vmin;
+      margin-left: 10vw;
+      margin-right: 10vw;
+      padding: 1%;
+      background-color: whitesmoke;
+      border-radius: 15px;
+      box-shadow: 10px 10px 20px slategray;
+    }
+    button{
+      padding: 2%;
+      font-size: 3vmin;
+      background-color: dodgerblue;
+      border-radius: 25px;
+      border-style: none;
+      color: whitesmoke;
+      margin-top: 6px;
+    }
+    button:hover{
+      background-color: royalblue;
+    }
+    input{
+      background-color: whitesmoke;
+      border-style: none;
+      padding: 5px;
+      border: 0.5px solid rgba(125,125,125 ,1 );
+      border-radius: 10px;
+      margin-left: 5%;
+      margin-right: 5%;
+      width: 70%;
+    }
+    h2{
+      font-size: 8vmin;
+      text-align: center;
+      margin-top: -7vh;
+      color: rgba(125,125,125 ,1 );
+    }
+    label{
+      font-size: 3vmin;
+      color: rgba(125,125,125 ,1 );
+    }
+    #usrLabel{
+      margin-top: 6vmin;
+      color: rgba(125,125,125 ,1 );
+    }
+    img{
+      margin-top: 10vh;
+      width: 50vmin;
+      clip-path: circle(30%);
+    }
     </style>
-
   </head>
-  <body>
-      
-      <h1><b>SUMMIT</b></h1>
-      
-      <br>
-      <label class="wText"><b>USERNAME:</b></label><br>
-      <input type ="text" id = "username">
-      <br>
-      <br>
-      <label class="wText"><b>PASSWORD:</b></label><br>
-      <input type ="password" id = "password">
-      <br>
-      <br>
-      <div>
-        <button>Login</button>
-        <button>Signup</button>
+<body>
+    <div class = "mainBod">
+    <div class = "item1">
+    <img src="https://docs.google.com/drawings/d/e/2PACX-1vSJprqPyFD8liGiYpEk8hEo_40_I2wFPx3bfqwcBKxa6wSwD3GBqjUP2CEFe9bDzy-7ii0MEe2BUEQc/pub?w=480&h=360">
+    <h2>CHRONOS</h2>
+        <p>Make work easier.</p>
       </div>
-      <br>
-      <button id="infoBtn">Info</button>
-      
-      <div id="myModal" class="modal">
-          
-          <div class="modal-content">
-              
-                <span class="close">&times;</span>
-                <p>Information about Summit:</p>
-              
-          </div>
-          
+      <div class = "item2">
+        <label id="usrLabel">Username: </label><br><input type ="text" id = "username">
+        <br>
+        <br>
+        <label>Password: </label><br><input type ="password" id = "password">
+        <br>
+        <br>
+        <button id = "login">LOGIN</button>
+        <br>
+        <p id = "signup">Don't have an account?<a href="signup.html"> Signup</a></p>
       </div>
+    </div>
+  
+    <script>
+      
+      document.getElementById("login").addEventListener("click",logIn);
+      var ok = false;
+      var usernamea = "";
+      sessionStorage.setItem("usernamea", usernamea);
+      function callback(val) {
+        if(val){
+         alert("Success!");
+         document.getElementById("cont").disabled = false;
 
-      
-      <script>
-        var modal = document.getElementById("myModal");
-        var btn = document.getElementById("infoBtn");
-        var span = document.getElementsByClassName("close")[0];
           
 
-        btn.onclick = function() {
-          modal.style.display = "block";
+        } else {
+          alert("failed login");
+          
         }
-        span.onclick = function() {
-          modal.style.display = "none";
+      }
+      
+
+
+
+      function logIn(){
+        var uname = document.getElementById("username").value;
+        var pword = document.getElementById("password").value;
+        const Http = new XMLHttpRequest();
+        const url='https://script.google.com/macros/s/AKfycbzMxHnjjPKcUcb2ffDyef10slO3-E9GtxPXG5k_EvJv1Jdod3E/exec';
+        var data = "?username="+uname+"&password="+pword+"&action=login";
+        Http.open("GET", String(url+data));
+        Http.send();
+
+        Http.onreadystatechange = (e) => {
+            ok = Http.responseText;
+            console.log(String(ok));
+            console.log(Http.readyState);
+        if (Http.readyState == 4)
+        {
+          if(String(ok) == "true,"){
+              console.log("truo");
+              alert("Success!");
+               sessionStorage.setItem("usernamea",uname);
+               window.location = "log.html";
+            }
+            else{
+              console.log("falso");
+              alert("failed login");
+            }
         }
-        window.onclick = function(event) {
-          if (event.target == modal) {
-            modal.style.display = "none";
-          }
         }
         
-      </script>
+
+      }
+
+
+
+
+    </script>
   </body>
 </html>
