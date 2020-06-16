@@ -27,13 +27,78 @@
       <input type ="password" id = "password">
       <br>
       <p><b>Would you like to teach or learn?</b></p>
-      <input type="radio" id="teach" name="option" value="teach">
+      <input type="radio" onclick="tutorcheck()" id="teach" name="option" value="teach">
       <label for="teach">Teach</label>
       <br>
-      <input type="radio" id="learn" name="option" value="learn">
+      <input type="radio" onclick="tutorcheck()" id="learn" name="option" value="learn">
       <label for="learn">Learn</label>
       <br>
       <br>
-      <button>Signup</button>
+      <div id="tutorcheck" style="display:none">
+        What subjects can you teach? <input type='text' id='subj' name='subj'>
+    </div>
+      <button onclick="signup()">Signup</button>
+      <script>
+      
+        document.getElementById("login").addEventListener("click",logIn);
+        
+        function tutorcheck() {
+          if (document.getElementById('teach').checked) {
+            document.getElementById('tutorcheck').style.display = 'block';
+          }
+          else{
+            document.getElementById('tutorcheck').style.display = 'none';
+            document.getElementById('subj').value = " ";
+          } 
+        
+        }
+  
+  
+        function signup(){
+          var uname = document.getElementById("username").value;
+          var pword = document.getElementById("password").value;
+          var subjects = document.getElementById("subj").value.split(',');
+          if (document.getElementById('teach').checked) {
+            var role = 'tutor';
+          }
+          else{
+            var role = 'student';
+            
+          }
+
+          const Http = new XMLHttpRequest();
+          const url='https://script.google.com/macros/s/AKfycbzMxHnjjPKcUcb2ffDyef10slO3-E9GtxPXG5k_EvJv1Jdod3E/exec';
+          var data = "?username="+uname+"&password="+pword+"&subjects="+subjects+"&role="+role+"&action=signup";
+          Http.open("GET", String(url+data));
+          Http.send();
+  
+          Http.onreadystatechange = (e) => {
+              ok = Http.responseText;
+              console.log(String(ok));
+              console.log(Http.readyState);
+          if (Http.readyState == 4)
+          {
+            if(String(ok) == "true"){
+                console.log("truo");
+                alert("Success!");
+                 window.location = "login.html";
+              }
+              else if(String(ok) == 'false'){
+                alert("That username is in use, Please choose another one!");
+              }
+              else{
+                console.log("falso");
+                alert("server error");
+              }
+          }
+          }
+          
+  
+        }
+  
+  
+  
+  
+      </script>
   </body>
 </html>
