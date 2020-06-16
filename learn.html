@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <style>
+        
+        * {
+            font-family: "Montserrat"
+        }
+    </style>
+
+  </head>
+  <body>
+      <ul class="list-group" id="dynamic-list"></ul>
+
+    <script>
+
+        var tutor1 = {
+            name: "tutor1",
+            subject: "math"
+        }
+        var tutor2 = {
+            name: "tutor2",
+            subject: "sat"
+        }
+        var tutor3 = {
+            name: "tutor3",
+            subject: "act"
+        }
+
+        var tutors = [tutor1, tutor2, tutor3];
+
+        for(i = 0;i<tutors.length;i++) {
+            addTutor(tutors[i]);
+        }
+
+        function alertName(x) {
+            alert(x);
+        }
+
+        function addTutor(x) {
+            var ul = document.getElementById("dynamic-list");
+            var li = document.createElement("li");
+            li.setAttribute('id', x.name);
+            li.setAttribute('class','list-group-item');
+            li.setAttribute('onclick', 'alertName(this.id)');
+            li.appendChild(document.createTextNode("Tutor"));
+            ul.appendChild(li);
+            
+            document.getElementById(x.name).innerHTML = x.name + " - " + x.subject;
+        }
+    </script>
+  </body>
+</html>
