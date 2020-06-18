@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <style>
+        
+        * {
+            font-family: "Montserrat"
+        }
+    </style>
+
+  </head>
+  <body>
+      <ul class="list-group" id="dynamic-list"></ul>
+ 
+
+    <script>
+
+        const Http = new XMLHttpRequest();
+        const url='https://script.google.com/macros/s/AKfycbzMxHnjjPKcUcb2ffDyef10slO3-E9GtxPXG5k_EvJv1Jdod3E/exec';
+        var data = "?action=gettut";
+        Http.open("GET", String(url+data));
+        Http.send();
+
+        Http.onreadystatechange = (e) => {
+            ok = Http.responseText;
+            console.log(String(ok));
+            console.log(Http.readyState);
+            ok = JSON.parse(ok);
+        if (Http.readyState == 4)
+        {
+            for(i = 0;i<ok.length;i++) {
+                addTutor(ok[i]);
+            } 
+        }
+        }
+
+
+
+
+
+        function alertName(x) {
+            alert(x);
+        }
+
+        function addTutor(x) {
+            var ul = document.getElementById("dynamic-list");
+            var li = document.createElement("li");
+            li.setAttribute('id', x.name);
+            li.setAttribute('class','list-group-item');
+            li.setAttribute('onclick', 'alertName(this.id)');
+            li.appendChild(document.createElement("h1").appendChild(document.createTextNode(x.name)));
+            var chaticon = document.createElement('button');
+            chaticon.setAttribute('id', 'chaticon')
+            chaticon.setAttribute('class', 'btn btn-primary')
+            chaticon.innerHTML = 	'&#128488; Chat' 
+
+            li.appendChild(document.createElement("br"));
+            li.appendChild(document.createElement("p").appendChild(document.createTextNode(x.subjects )));
+            li.appendChild(chaticon)
+            li.appendChild(document.createElement("br"));
+            li.appendChild(document.createElement("p").appendChild(document.createTextNode(x.reviews+' \u2B50' )));
+            ul.appendChild(li);
+
+            
+
+        }
+
+        function connect(x){
+            const Http = new XMLHttpRequest();
+            const url='https://script.google.com/macros/s/AKfycbzMxHnjjPKcUcb2ffDyef10slO3-E9GtxPXG5k_EvJv1Jdod3E/exec';
+            var data = "?action=gettut";
+            Http.open("GET", String(url+data));
+            Http.send();
+
+            Http.onreadystatechange = (e) => {
+                ok = Http.responseText;
+                console.log(String(ok));
+                console.log(Http.readyState);
+                ok = JSON.parse(ok);
+            if (Http.readyState == 4)
+            {
+
+            }
+            }
+        }
+    </script>
+  </body>
+</html>
