@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <style>
         
@@ -15,27 +17,32 @@
   </head>
   <body>
       <ul class="list-group" id="dynamic-list"></ul>
+ 
 
     <script>
 
-        var tutor1 = {
-            name: "tutor1",
-            subject: "math"
+        const Http = new XMLHttpRequest();
+        const url='https://script.google.com/macros/s/AKfycbzMxHnjjPKcUcb2ffDyef10slO3-E9GtxPXG5k_EvJv1Jdod3E/exec';
+        var data = "?action=gettut";
+        Http.open("GET", String(url+data));
+        Http.send();
+
+        Http.onreadystatechange = (e) => {
+            ok = Http.responseText;
+            console.log(String(ok));
+            console.log(Http.readyState);
+            ok = JSON.parse(ok);
+        if (Http.readyState == 4)
+        {
+            for(i = 0;i<ok.length;i++) {
+                addTutor(ok[i]);
+            } 
         }
-        var tutor2 = {
-            name: "tutor2",
-            subject: "sat"
-        }
-        var tutor3 = {
-            name: "tutor3",
-            subject: "act"
         }
 
-        var tutors = [tutor1, tutor2, tutor3];
 
-        for(i = 0;i<tutors.length;i++) {
-            addTutor(tutors[i]);
-        }
+
+
 
         function alertName(x) {
             alert(x);
@@ -47,10 +54,40 @@
             li.setAttribute('id', x.name);
             li.setAttribute('class','list-group-item');
             li.setAttribute('onclick', 'alertName(this.id)');
-            li.appendChild(document.createTextNode("Tutor"));
+            li.appendChild(document.createElement("h1").appendChild(document.createTextNode(x.name)));
+            var chaticon = document.createElement('button');
+            chaticon.setAttribute('id', 'chaticon')
+            chaticon.setAttribute('class', 'btn btn-primary')
+            chaticon.innerHTML = 	'&#128488; Chat' 
+
+            li.appendChild(document.createElement("br"));
+            li.appendChild(document.createElement("p").appendChild(document.createTextNode(x.subjects )));
+            li.appendChild(chaticon)
+            li.appendChild(document.createElement("br"));
+            li.appendChild(document.createElement("p").appendChild(document.createTextNode(x.reviews+' \u2B50' )));
             ul.appendChild(li);
+
             
-            document.getElementById(x.name).innerHTML = x.name + " - " + x.subject;
+
+        }
+
+        function connect(x){
+            const Http = new XMLHttpRequest();
+            const url='https://script.google.com/macros/s/AKfycbzMxHnjjPKcUcb2ffDyef10slO3-E9GtxPXG5k_EvJv1Jdod3E/exec';
+            var data = "?action=gettut";
+            Http.open("GET", String(url+data));
+            Http.send();
+
+            Http.onreadystatechange = (e) => {
+                ok = Http.responseText;
+                console.log(String(ok));
+                console.log(Http.readyState);
+                ok = JSON.parse(ok);
+            if (Http.readyState == 4)
+            {
+
+            }
+            }
         }
     </script>
   </body>
