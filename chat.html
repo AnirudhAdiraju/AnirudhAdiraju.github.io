@@ -1,5 +1,6 @@
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-app.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 
 <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
@@ -35,10 +36,10 @@
   firebase.database().ref(name+othername).on("child_added", function (snapshot) {
       console.log(snapshot.val().sender)
       if(snapshot.val().sender == myName){
-          appendMessage(myName,"https://image.flaticon.com/icons/svg/145/145867.svg","right",snapshot.val().message)
+          appendMessage(myName,"https://image.flaticon.com/icons/svg/2919/2919600.svg","right",snapshot.val().message)
       }
       else{
-          appendMessage(snapshot.val().sender,"https://image.flaticon.com/icons/svg/145/145867.svg","left",snapshot.val().message)
+          appendMessage(snapshot.val().sender,"https://image.flaticon.com/icons/svg/2919/2919600.svg","left",snapshot.val().message)
       }
 
 
@@ -55,6 +56,7 @@
 
     html {
     box-sizing: border-box;
+    height: 100%;
     }
 
     *,
@@ -70,8 +72,9 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: var(--body-bg);
-    font-family: Helvetica, sans-serif;
+    font-family: Montserrat, sans-serif;
+    background-image: url(https://wallpaperaccess.com/full/1630430.jpg); ;
+    background-size: 100% 100%;
     }
 
     .msger {
@@ -84,16 +87,16 @@
     height: calc(100% - 50px);
     border: var(--border);
     border-radius: 5px;
-    background: var(--msger-bg);
-    box-shadow: 0 15px 15px -5px rgba(0, 0, 0, 0.2);
+    background: rgba(55,53, 77, .75);
+    border-color: rgba(100,100,100,.75);
     }
 
     .msger-header {
     display: flex;
     justify-content: space-between;
     padding: 10px;
-    border-bottom: var(--border);
-    background: #eee;
+    border-style: none;
+    background: rgba(55,53, 77, 1);
     color: #666;
     }
 
@@ -106,10 +109,10 @@
     width: 6px;
     }
     .msger-chat::-webkit-scrollbar-track {
-    background: #ddd;
+    background: rgba(55,53, 77, .25);
     }
     .msger-chat::-webkit-scrollbar-thumb {
-    background: #bdbdbd;
+    background: rgba(100,100,100,.25);
     }
     .msg {
     display: flex;
@@ -133,13 +136,14 @@
     max-width: 450px;
     padding: 15px;
     border-radius: 15px;
-    background: var(--left-msg-bg);
+    background: rgba(128,128,128,.75);
     }
     .msg-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
+
     }
     .msg-info-name {
     margin-right: 10px;
@@ -152,13 +156,16 @@
     .left-msg .msg-bubble {
     border-bottom-left-radius: 0;
     }
+    .left-msg{
+      color: #fff;
+    }
 
     .right-msg {
     flex-direction: row-reverse;
+    color: #fff;
     }
     .right-msg .msg-bubble {
     background: var(--right-msg-bg);
-    color: #fff;
     border-bottom-right-radius: 0;
     }
     .right-msg .msg-img {
@@ -168,8 +175,11 @@
     .msger-inputarea {
     display: flex;
     padding: 10px;
-    border-top: var(--border);
-    background: #eee;
+    border-top: rgba(100,100,100,.75);
+    border-top-style: solid;
+    border-top-width: 1px;
+    background: rgba(55,53, 77, 1);
+    color: #fff;
     }
     .msger-inputarea * {
     padding: 10px;
@@ -179,24 +189,30 @@
     }
     .msger-input {
     flex: 1;
-    background: #ddd;
+    background: rgba(40,38, 62);
     }
     .msger-send-btn {
     margin-left: 10px;
-    background: rgb(0, 196, 65);
-    color: #fff;
-    font-weight: bold;
+    font-size: 3vmin;
+    border-radius: 5px;
+    border-style: none;
+    background-color:rgba(42, 82, 190,.75);
+    color: gainsboro;
+    outline-style: none;
     cursor: pointer;
     transition: background 0.23s;
+    font-family: 'Montserrat', sans-serif;
+    font-style: bold;
     }
     .msger-send-btn:hover {
-    background: rgb(0, 180, 50);
+    background-color: rgba(42, 82, 190,.9);
+    color: gainsboro;
     }
 
-    .msger-chat {
-    background-color: #fcfcfe;
-
-    }    
+    #bruhshutupani {
+      opacity: 80%;
+      width: 15vw;
+    }
 </style>
      
 <script>
@@ -219,12 +235,10 @@ document.getElementsByClassName("msger-chat");
       const msgHTML = `
         <div class="msg ${side}-msg">
           <div class="msg-img" style="background-image: url(${img})"></div>
-
           <div class="msg-bubble">
             <div class="msg-info">
               <div class="msg-info-name">${name}</div>
             </div>
-
             <div class="msg-text">${text}</div>
           </div>
         </div>
@@ -237,7 +251,8 @@ document.getElementsByClassName("msger-chat");
 <section class="msger">
     <header class="msger-header">
       <div class="msger-header-title">
-        <i class="fas fa-comment-alt"></i> Summit
+        <i class="fas fa-comment-alt"></i> 
+        <img id = "logo" src = "https://docs.google.com/drawings/d/e/2PACX-1vTknXUPKcLaiNAV3ft95iUIxPGONunm9TrVLgqCvEyZv12UMPQJX3u9nQX3x4VU6r7TOj_WvNtKkzYL/pub?w=415&h=115">
       </div>
       <div class="msger-header-options">
         <span><i class="fas fa-cog"></i></span>
@@ -259,4 +274,3 @@ document.getElementsByClassName("msger-chat");
       <button onclick = "sendMessage()" class="msger-send-btn">Send</button>
     </div>
   </section>
-     
