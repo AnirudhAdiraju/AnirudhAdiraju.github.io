@@ -108,7 +108,7 @@
       <br>
       <div class = "none">
         <label>Don't have an account?</label>
-        <button id = "signup">Sign Up</button>
+        <button id = "signup" onclick="nav()">Sign Up</button>
       </div>
       <br>
       
@@ -119,19 +119,7 @@
       
 
       var ok = false;
-      var usernamea = "";
-      sessionStorage.setItem("usernamea", usernamea);
-      function callback(val) {
-        if(val){
-         alert("Success!");
 
-          
-
-        } else {
-          alert("failed login");
-          
-        }
-      }
       
 
 
@@ -165,6 +153,10 @@
         }
         
 
+      }
+
+      function nav(){
+        window.location = "signup.html"
       }
 
  

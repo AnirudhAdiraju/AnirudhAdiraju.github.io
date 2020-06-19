@@ -8,19 +8,33 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <style>
-        
+        html{
+          height: 100%;
+        }
         * {
-            font-family: "Montserrat"
+            font-family: "Montserrat", "sans-serif"
+        }
+        body{
+          background-image: url(https://wallpaperaccess.com/full/1630430.jpg);
+          background-size: 100% 100%;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-position: center;
+        }
+        .list-group {
+          width: 80%;
+          margin: auto;
         }
     </style>
 
   </head>
   <body>
-      <ul class="list-group" id="dynamic-list"></ul>
- 
+      <div id = "bod">
+        <ul class="list-group" id="dynamic-list"></ul>
+      </div>
 
     <script>
-
+        var uname = sessionStorage.getItem("usernamea")
         const Http = new XMLHttpRequest();
         const url='https://script.google.com/macros/s/AKfycbzMxHnjjPKcUcb2ffDyef10slO3-E9GtxPXG5k_EvJv1Jdod3E/exec';
         var data = "?action=gettut";
@@ -34,13 +48,15 @@
             ok = JSON.parse(ok);
         if (Http.readyState == 4)
         {
-            for(i = 0;i<ok.length;i++) {
-                addTutor(ok[i]);
+            renderlist(ok)
+        }
+        }
+
+        function renderlist(list){
+            for(i = 0;i<list.length;i++) {
+                addTutor(list[i]);
             } 
         }
-        }
-
-
 
 
 
@@ -51,14 +67,24 @@
         function addTutor(x) {
             var ul = document.getElementById("dynamic-list");
             var li = document.createElement("li");
+            li.style["background-color"] = "rgba(128,128,128 ,.75 )";
+            li.style["color"] = "white";
+            li.style["font-size"]="3vmin";
             li.setAttribute('id', x.name);
             li.setAttribute('class','list-group-item');
-            li.setAttribute('onclick', 'alertName(this.id)');
+
             li.appendChild(document.createElement("h1").appendChild(document.createTextNode(x.name)));
             var chaticon = document.createElement('button');
-            chaticon.setAttribute('id', 'chaticon')
+            chaticon.setAttribute('id', x.name)
             chaticon.setAttribute('class', 'btn btn-primary')
-            chaticon.innerHTML = 	'&#128488; Chat' 
+            chaticon.setAttribute('onclick', 'connect(this.id)')
+            chaticon.innerHTML = 	'&#65291; Connect' 
+            chaticon.style["background-color"]="rgba(64, 69, 132, .65)";
+            chaticon.style["outline"]="none";
+            chaticon.style["border-style"]="none";
+            chaticon.style["position"] = "absolute";
+            chaticon.style["right"]="0";
+            chaticon.style["margin-right"]="2vw";             
 
             li.appendChild(document.createElement("br"));
             li.appendChild(document.createElement("p").appendChild(document.createTextNode(x.subjects )));
@@ -66,7 +92,6 @@
             li.appendChild(document.createElement("br"));
             li.appendChild(document.createElement("p").appendChild(document.createTextNode(x.reviews+' \u2B50' )));
             ul.appendChild(li);
-
             
 
         }
@@ -74,19 +99,24 @@
         function connect(x){
             const Http = new XMLHttpRequest();
             const url='https://script.google.com/macros/s/AKfycbzMxHnjjPKcUcb2ffDyef10slO3-E9GtxPXG5k_EvJv1Jdod3E/exec';
-            var data = "?action=gettut";
+            var data = "?tutor="+x+"&student="+uname+"&action=connect";
             Http.open("GET", String(url+data));
             Http.send();
 
             Http.onreadystatechange = (e) => {
                 ok = Http.responseText;
-                console.log(String(ok));
-                console.log(Http.readyState);
-                ok = JSON.parse(ok);
-            if (Http.readyState == 4)
-            {
 
-            }
+                ok = String(ok);
+                if (Http.readyState == 4)
+                {
+                    if(ok=="true"){
+                        alert("Succesfully connected!")
+                    }
+                    else{
+
+                        alert("Server error")
+                    }
+                }
             }
         }
     </script>
