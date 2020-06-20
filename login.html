@@ -139,15 +139,27 @@
             console.log(Http.readyState);
         if (Http.readyState == 4)
         {
-          if(String(ok) == "true,"){
-              console.log("truo");
+          if(ok.substring(0,8) == "student,"){
+              var stuff = JSON.parse(ok.substring(8,ok.length))
+              sessionStorage.setItem("alltutors",stuff[0])
+              sessionStorage.setItem("specifictutors",stuff[1])
+              console.log(sessionStorage.getItem("alltutors"))
+              sessionStorage.setItem("role","student")
+              sessionStorage.setItem("usernamea",uname);
               alert("Success!");
-               sessionStorage.setItem("usernamea",uname);
+ 
                window.location = "learn.html";
             }
+            else if(ok.substring(0,6) == "tutor,"){
+              var stuff = JSON.parse(ok.substring(6,ok.length))
+              sessionStorage.setItem("students",stuff[0])
+              sessionStorage.setItem("logs",stuff[1])
+              sessionStorage.setItem("role","tutor")
+              sessionStorage.setItem("usernamea",uname);
+              alert("Success!");
+            }
             else{
-              console.log("falso");
-              alert("failed login");
+              alert("Failed Login. Please retry or create an account")
             }
         }
         }
