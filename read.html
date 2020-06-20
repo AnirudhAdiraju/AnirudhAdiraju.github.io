@@ -28,9 +28,11 @@
       <textarea id="responseTextArea" class="UIInput" style="width:580px; height:400px;"></textarea>
     </div>
   </div>
+  <button onclick="speak()">Speak It!</button>
 </body>
 </html>
 <script>
+  var speaker = "";
   document.querySelector('#inputImage').addEventListener('change', function() {
 
   var reader = new FileReader();
@@ -84,6 +86,7 @@
             x += data.recognitionResult.lines[i].text
           }
           $("#responseTextArea").val(x);
+          speaker = x;
         })
 
         .fail(function(jqXHR, textStatus, errorThrown) {
@@ -110,4 +113,10 @@
   reader.readAsArrayBuffer(this.files[0]);
 
   }, false);
+
+  function speak(){
+    var synth = window.speechSynthesis
+    var saythis = new SpeechSynthesisUtterance(speaker)
+    synth.speak(saythis)
+  }
 </script>
