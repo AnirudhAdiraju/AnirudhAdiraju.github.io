@@ -15,23 +15,108 @@
 </style>
 </head>
 <body>
-  <input type='file' onchange="readURL(this);" />
-    <img id="blah" src="#" alt="your image" />
+  <h1>Read handwritten image image:</h1>
+  Image to read:
+  <input type="file" id="inputImage" />
+  <br>
+  <br>
+  <div id="wrapper" style="width:1020px; display:table;">
+    <div id="jsonOutput" style="width:600px; display:table-cell;">
+      Response:
+      <br>
+      <br>
+      <textarea id="responseTextArea" class="UIInput" style="width:580px; height:400px;"></textarea>
+    </div>
+  </div>
+  <button onclick="speak()">Speak It!</button>
 </body>
 </html>
 <script>
-function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
+  var speaker = "";
+  document.querySelector('#inputImage').addEventListener('change', function() {
 
-        reader.onload = function (e) {
-            $('#blah')
-                .attr('src', e.target.result)
-                .width(1000)
-                .height(500);
-        };
+  var reader = new FileReader();
+  reader.onload = function() {
 
-        reader.readAsDataURL(input.files[0]);
-    }
-}
+    var arrayBuffer = this.result,
+      array = new Uint8Array(arrayBuffer);
+      
+    // Replace the subscriptionKey string value with your valid subscription key.
+    var subscriptionKey = "920eae4b5b7c47fabdfe5881395e6ff4";
+    var uriBase = "https://eastus.api.cognitive.microsoft.com/vision/v1.0/RecognizeText";
+
+    var params = {
+      "handwriting": "true",
+    };
+    $.ajax({
+      url: uriBase + "?" + $.param(params),
+
+      beforeSend: function(jqXHR) {
+        jqXHR.setRequestHeader("Content-Type", "application/octet-stream");
+        jqXHR.setRequestHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
+      },
+
+      type: "POST",
+      processData: false,
+      data: arrayBuffer
+    })
+
+    .done(function(data, textStatus, jqXHR) {
+      // Show progress.
+      $("#responseTextArea").val("Handwritten text submitted. Waiting 10 seconds to retrieve the recognized text.");
+      setTimeout(function() {
+        // The "Operation-Location" in the response contains the URI to retrieve the recognized text.
+        var operationLocation = jqXHR.getResponseHeader("Operation-Location");
+
+        $.ajax({
+          url: operationLocation,
+          beforeSend: function(jqXHR) {
+            jqXHR.setRequestHeader("Content-Type", "application/json");
+            jqXHR.setRequestHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
+          },
+          type: "GET",
+        })
+
+        .done(function(data) {
+          // Show formatted JSON on webpage.
+          var x = ""
+          console.log(data)
+          console.log(data.recognitionResult.lines)
+          for(var i = 0; i<data.recognitionResult.lines.length; i++){
+            x += data.recognitionResult.lines[i].text
+          }
+          $("#responseTextArea").val(x);
+          speaker = x;
+        })
+
+        .fail(function(jqXHR, textStatus, errorThrown) {
+          // Display error message.
+          var errorString = (errorThrown === "") ? "Error. " : errorThrown + " (" + jqXHR.status + "): ";
+          errorString += (jqXHR.responseText === "") ? "" : (jQuery.parseJSON(jqXHR.responseText).message) ?
+            jQuery.parseJSON(jqXHR.responseText).message : jQuery.parseJSON(jqXHR.responseText).error.message;
+          alert(errorString);
+        });
+      }, 10000);
+    })
+
+    .fail(function(jqXHR, textStatus, errorThrown) {
+      // Put the JSON description into the text area.
+      $("#responseTextArea").val(JSON.stringify(jqXHR, null, 2));
+
+      // Display error message.
+      var errorString = (errorThrown === "") ? "Error. " : errorThrown + " (" + jqXHR.status + "): ";
+      errorString += (jqXHR.responseText === "") ? "" : (jQuery.parseJSON(jqXHR.responseText).message) ?
+        jQuery.parseJSON(jqXHR.responseText).message : jQuery.parseJSON(jqXHR.responseText).error.message;
+      alert(errorString);
+    })
+  }
+  reader.readAsArrayBuffer(this.files[0]);
+
+  }, false);
+
+  function speak(){
+    var synth = window.speechSynthesis
+    var saythis = new SpeechSynthesisUtterance(speaker)
+    synth.speak(saythis)
+  }
 </script>
