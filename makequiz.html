@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <style>
+
+    </style>
+  </head>
+  <body>
+    <h1>Create Quiz</h1>
+    <div id="questions"></div>
+    <br>
+    <button id="addBtn" onclick="addQuestion()">Add Question</button>
+    <button id="removeBtn" onclick="removeQuestion()">Remove Question</button>
+    <button id="finishBtn" onclick="finishQuiz()">Finish</button>
+    <script>
+      var allQuestions = document.getElementById("questions");
+      var addButton = document.getElementById("addBtn");
+      var removeButton = document.getElementById("removeBtn");
+
+
+      var questionNum = 1;
+
+
+      function addQuestion() {
+        var questionDiv = document.createElement("div");
+        questionDiv.setAttribute('id','questionDiv'+questionNum);
+        
+        var newQuestionInput = document.createElement("input");
+        newQuestionInput.setAttribute('id','newQuestionInput'+questionNum);
+        newQuestionInput.setAttribute('type', 'text');
+        newQuestionInput.setAttribute('placeholder', 'Question');
+        questionDiv.appendChild(newQuestionInput);
+
+        var firstAnswer = document.createElement("input");
+        firstAnswer.setAttribute('id','answerOne'+questionNum);
+        firstAnswer.setAttribute('type', 'text');
+        firstAnswer.setAttribute('placeholder', 'Answer 1');
+        questionDiv.appendChild(firstAnswer);
+
+        var secondAnswer = document.createElement("input");
+        secondAnswer.setAttribute('id','answerTwo'+questionNum);
+        secondAnswer.setAttribute('type', 'text');
+        secondAnswer.setAttribute('placeholder', 'Answer 2');
+        questionDiv.appendChild(secondAnswer);
+        
+        var thirdAnswer = document.createElement("input");
+        thirdAnswer.setAttribute('id','answerThree'+questionNum);
+        thirdAnswer.setAttribute('type', 'text');
+        thirdAnswer.setAttribute('placeholder', 'Answer 3');
+        questionDiv.appendChild(thirdAnswer);
+
+        var correctAnswer = document.createElement("input");
+        correctAnswer.setAttribute('id','correctNum'+questionNum);
+        correctAnswer.setAttribute('placeholder','Correct Answer (1/2/3)');
+        correctAnswer.setAttribute('type','number');
+        correctAnswer.setAttribute('min',"0");
+        correctAnswer.setAttribute('max',"3");
+        questionDiv.appendChild(correctAnswer);
+
+        allQuestions.appendChild(questionDiv);
+
+        questionNum++;
+      }
+
+      function removeQuestion() {
+        questionNum--;
+        var recentQuestionDiv = document.getElementById('questionDiv'+questionNum);
+        if(questionNum>0) {
+          recentQuestionDiv.remove();
+        }
+      }
+
+
+      
+      
+      function finishQuiz() {
+        var tutor = 'bruh';
+        var student = 'john';
+        var questionArr = [];
+        
+        for(i = 1;i<questionNum; i++) {
+          
+          var quizObject = {};
+          quizObject['question'] = document.getElementById('newQuestionInput'+i).value;
+          quizObject['answers'] = [document.getElementById('answerOne'+i).value, document.getElementById('answerTwo'+i).value, document.getElementById('answerThree'+i).value];
+          quizObject['correct'] = document.getElementById('correctNum'+i).value;
+          
+          questionArr.push(quizObject);
+          
+          console.log(JSON.stringify(quizObject));
+
+
+        }
+        var quiz = JSON.stringify(questionArr);
+        const Http = new XMLHttpRequest();
+        const url ='https://script.google.com/macros/s/AKfycbzMxHnjjPKcUcb2ffDyef10slO3-E9GtxPXG5k_EvJv1Jdod3E/exec'
+        var data = "?tutor="+tutor+"&student="+student+"&quiz="+quiz+"&action=TestQuiz";
+        Http.open("GET", String(url+data));
+        Http.send();
+            Http.onreadystatechange = (e) => {
+              ok = Http.responseText;
+              console.log(String(ok))
+              console.log(Http.readyState);
+              
+            if (Http.readyState == 4)
+            {
+                if(String(ok)=='true'){
+                  alert('ur quiz sent foo')
+                }
+                else{
+                  console.log(data);
+                  alert('nah foename')
+                }
+            }
+          }
+      }
+    </script>
+  </body>
+</html>
