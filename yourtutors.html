@@ -6,40 +6,138 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
+
+
+<meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Propositime</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Custom fonts for this template -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900"
+      rel="stylesheet"
+    />
+    <link
+  href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet"
+    />
+
+    <!-- Custom styles for this template -->
+    <link href="style.css" rel="stylesheet" />
+    <link
+      href="https://unpkg.com/aos@2.3.1/dist/aos.css"
+      rel="stylesheet"
+    />
+
+
     <style>
-        
-        * {
-            font-family: "Montserrat"
+        html{
+          height: 100%;
         }
+        * {
+            font-family: "Work Sans", "Montserrat";
+        }
+        body{
+          background-image: url(https://wallpaperaccess.com/full/1630430.jpg);
+          background-size: 100% 100%;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-position: center;
+          position: relative;
+        }
+        #bod{
+          margin-top:5%;
+          height: 80vh;
+          overflow: auto;
+          display: flex;
+          flex-direction: column;
+        }
+        .list-group {
+          width: 75vw;
+          margin: auto;
+        }
+        #bruhshutupani {
+          margin-top: 1.5rem;
+          margin-left: 3rem;
+          margin-bottom: 20px;
+          margin-right: 20px;
+          opacity: 80%;
+          width: 20vmin;
+        }
+        h3{
+          font-size: 2rem;
+          color: dimGrey;
+          text-align: center;
+          margin-top: -2rem;
+        }
+       #navbar{
+         background: rgba(0, 0, 0, 0.7);
+         color: white;
+        
+
+       }
+       a{
+         color: white;
+         font-size: 3vmin;
+       }
+      img{
+        margin-top: -40px;
+      }
+      .nav-item{
+        float: right;
+      }
+
     </style>
 
   </head>
   <body>
-      <ul class="list-group" id="dynamic-list"></ul>
- 
+    <div id="navbar">
+      <ul class="nav">
+        <img id = "bruhshutupani" src = "https://docs.google.com/drawings/d/e/2PACX-1vS-8fUa0xwfel7p5KClUGWZD7sJJlxsQSoVi71wFozIucH0UmIZcaqR0ARdVUsPcIlNhD16cuTjCLNR/pub?w=1244&h=323">
+        <li class="nav-item">
+          <a class="nav-link active" href="learn.html">Find a Tutor</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Disabled</a>
+        </li>
+      </ul>
+    </div>
+
+      <div id = "bod">
+        <ul class="list-group" id="dynamic-list"></ul>
+      </div>
 
     <script>
+        var list = sessionStorage.getItem("specifictutors")
+        console.log(list)
+        renderlist(JSON.parse(list))
+        function renderlist(list){
+            if(list.length==0){
+                var h5 = document.createElement("h5")
+                h5.innerHTML = "You have no tutors. Go connect with the tutors of your choice!"
+                document.getElementById("bod").appendChild(h5)
+            }
+            else{
+                for(i = 0;i<list.length;i++) {
+                    addTutor(list[i]);
+                } 
+            }
 
-        const Http = new XMLHttpRequest();
-        const url='https://script.google.com/macros/s/AKfycbzMxHnjjPKcUcb2ffDyef10slO3-E9GtxPXG5k_EvJv1Jdod3E/exec';
-        var data = "?action=gettut";
-        Http.open("GET", String(url+data));
-        Http.send();
-
-        Http.onreadystatechange = (e) => {
-            ok = Http.responseText;
-            console.log(String(ok));
-            console.log(Http.readyState);
-            ok = JSON.parse(ok);
-        if (Http.readyState == 4)
-        {
-            for(i = 0;i<ok.length;i++) {
-                addTutor(ok[i]);
-            } 
         }
-        }
-
 
 
 
@@ -51,44 +149,94 @@
         function addTutor(x) {
             var ul = document.getElementById("dynamic-list");
             var li = document.createElement("li");
+            li.style["background-color"] = "rgba(55,53, 77,.75)";
+            li.style["color"] = "white";
+            li.style["border-color"]="rgba(140,140,140,.75)";
+            li.style["font-size"]="3vmin";
+            //li.style["height"]="25vmin";
             li.setAttribute('id', x.name);
             li.setAttribute('class','list-group-item');
-            li.setAttribute('onclick', 'alertName(this.id)');
-            li.appendChild(document.createElement("h1").appendChild(document.createTextNode(x.name)));
-            var chaticon = document.createElement('button');
-            chaticon.setAttribute('id', 'chaticon')
-            chaticon.setAttribute('class', 'btn btn-primary')
-            chaticon.innerHTML = 	'&#128488; Chat' 
 
-            li.appendChild(document.createElement("br"));
-            li.appendChild(document.createElement("p").appendChild(document.createTextNode(x.subjects )));
-            li.appendChild(chaticon)
-            li.appendChild(document.createElement("br"));
-            li.appendChild(document.createElement("p").appendChild(document.createTextNode(x.reviews+' \u2B50' )));
-            ul.appendChild(li);
+            var name = document.createElement("label");
+            name.innerHTML = x.name;
+            name.setAttribute('id','nombres');
+            name.style['font-size'] ='3.5vmin';
+            name.style['text-align'] ='left';
 
             
+            li.appendChild(name);
+            li.appendChild(document.createElement("br"));
 
+            var chaticon = document.createElement('button');
+            chaticon.setAttribute('id', x.name)
+            chaticon.setAttribute('class', 'btn btn-primary');
+            chaticon.innerHTML = 	'&#128172; Chat';
+            chaticon.style["background-color"]="rgba(100,149,237 ,.75 )";
+            chaticon.style["position"] = "absolute";
+            chaticon.style["right"]="0";
+            chaticon.style["font-size"]="1.5rem";
+            chaticon.style["margin-right"]="16rem";
+            chaticon.setAttribute('onclick','gotochat(this.id)')
+            
+                      
+
+            var reviewicon = document.createElement('button');
+            reviewicon.setAttribute('id', 'chaticon')
+            reviewicon.setAttribute('class', 'btn btn-primary')
+            reviewicon.innerHTML = 	'&#9733; Review' 
+            reviewicon.style["background-color"]="rgba(100,149,237 ,.75 )";
+            reviewicon.style["position"] = "absolute";
+            reviewicon.style["right"]="0";
+            reviewicon.style["font-size"]="1.5rem";
+            reviewicon.style["margin-right"]="7rem";
+            
+
+            var quizicon = document.createElement('button');
+            quizicon.setAttribute('id', 'chaticon');
+            quizicon.setAttribute('class', 'btn btn-primary');
+            sessionStorage.setItem("quiz", x.quiz) 
+            quizicon.setAttribute('onclick','gotoquiz()')
+            quizicon.innerHTML = 	'&#63; Quiz';
+            quizicon.style["background-color"]="rgba(100,149,237 ,.75 )";
+            quizicon.style["position"] = "absolute";
+            quizicon.style["right"]="0";
+            
+            quizicon.style["font-size"]="1.5rem";
+            quizicon.style["margin-right"]=".5rem"; 
+            quizicon.disabled = (x.quiz == "none")
+            
+            /*var daDiv = document.createElement("div");
+            daDiv.appendChild(name);
+            daDiv.appendChild(chaticon);
+            daDiv.appendChild(reviewicon);
+            daDiv.appendChild(quizicon);
+            //daDiv.style["text-align"]="right";*/
+            li.appendChild(document.createElement("p").appendChild(document.createTextNode(x.subjects )));
+            li.appendChild(quizicon);
+            li.appendChild(chaticon);
+            li.appendChild(reviewicon);
+            //li.appendChild(document.createElement("br"));
+
+  
+
+            li.appendChild(document.createElement("br"));
+            li.appendChild(document.createElement("p").appendChild(document.createTextNode(x.reviews+' \u2B50' )));
+
+            ul.appendChild(li);
+            
+  
         }
 
-        function connect(x){
-            const Http = new XMLHttpRequest();
-            const url='https://script.google.com/macros/s/AKfycbzMxHnjjPKcUcb2ffDyef10slO3-E9GtxPXG5k_EvJv1Jdod3E/exec';
-            var data = "?action=gettut";
-            Http.open("GET", String(url+data));
-            Http.send();
-
-            Http.onreadystatechange = (e) => {
-                ok = Http.responseText;
-                console.log(String(ok));
-                console.log(Http.readyState);
-                ok = JSON.parse(ok);
-            if (Http.readyState == 4)
-            {
-
-            }
-            }
+        function gotochat(tutor){
+          sessionStorage.setItem('otherchatter',tutor)
+          window.location = "chat.html"
         }
+
+        function gotoquiz(){
+
+          window.location = "quiz.html"
+        }
+
     </script>
   </body>
 </html>

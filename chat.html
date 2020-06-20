@@ -25,15 +25,22 @@
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
-  //right here will be sessionstorage getusername but for now it is hard coded i will fix it when the login is implemented
-  var name = "john";
-  var othername = "bob";
-  var myName = prompt('enter name')
+
+  var myName = sessionStorage.getItem('usernamea')
+  if(sessionStorage.getItem("role")=="student"){
+    var student = myName
+    var tutor = sessionStorage.getItem('otherchatter')
+  }
+  else{
+    var student = sessionStorage.getItem('otherchatter')
+    var tutor = myName
+  }
+  
 </script>
 <script>
 
   // listen for incoming messages
-  firebase.database().ref(name+othername).on("child_added", function (snapshot) {
+  firebase.database().ref(student+tutor).on("child_added", function (snapshot) {
       console.log(snapshot.val().sender)
       if(snapshot.val().sender == myName){
           appendMessage(myName,"https://image.flaticon.com/icons/svg/2919/2919600.svg","right",snapshot.val().message)
@@ -222,7 +229,7 @@ document.getElementsByClassName("msger-chat");
         var message = document.getElementById("message").value;
  
 
-        firebase.database().ref(name+othername).push().set({
+        firebase.database().ref(student+tutor).push().set({
             "sender": myName,
             "message": message
         });
