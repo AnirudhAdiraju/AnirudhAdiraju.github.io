@@ -218,20 +218,19 @@
 <script>
 document.getElementsByClassName("msger-chat");
     function sendMessage() {
-        // get message
+
         var message = document.getElementById("message").value;
  
-        // save in database
+
         firebase.database().ref(name+othername).push().set({
             "sender": myName,
             "message": message
         });
  
-        // prevent form from submitting
-       // return false;
+
     }
     function appendMessage(name, img, side, text) {
-      //   Simple solution for small apps
+
       const msgHTML = `
         <div class="msg ${side}-msg">
           <div class="msg-img" style="background-image: url(${img})"></div>
@@ -245,7 +244,7 @@ document.getElementsByClassName("msger-chat");
       `;
 
       document.getElementById("messages").innerHTML += msgHTML;
-      //msgerChat.scrollTop += 500;
+
     }
 </script>
 <section class="msger">
