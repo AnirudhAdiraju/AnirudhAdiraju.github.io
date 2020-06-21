@@ -17,7 +17,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Propositime</title>
+    <title>Summit</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -54,11 +54,12 @@
 
       /* Modal Content/Box */
       .modal-content {
-        background-color: #fefefe;
+        background-color: rgba(55,53, 77,.9);
         margin: 15% auto; /* 15% from the top and centered */
         padding: 20px;
         border: 1px solid #888;
         width: 80%; /* Could be more or less, depending on screen size */
+        color: white;
       }
 
       /* The Close Button */
@@ -185,26 +186,50 @@
         span.setAttribute('onclick','closeSpanModal()');
 
         var labeDog = document.createElement('label');
-        labeDog.innerHTML = "Your Review: (_/5&#9733;)";
+        labeDog.innerHTML = "Your Review:";
         labeDog.style['margin'] = 'auto';
         labeDog.style['font-size'] = '3vmin';
 
+        var inputDiv = document.createElement("div");
+        var spanDiv = document.createElement("div");
+        var inputSpan = document.createElement("span");
         var yourReview = document.createElement("input");
-        yourReview.style['width'] = '24%';
-        yourReview.style['margin'] = 'auto';
-        yourReview.style['margin-bottom'] = '1.5vmin';
-        yourReview.style['font-size'] = '2vmin';
+
+        inputDiv.setAttribute('class','input-group');
+        inputDiv.style['width'] = '10%';
+        inputDiv.style['margin'] = '2% auto';
+        
+
+        spanDiv.style['height'] = '4vmin';
+
+        spanDiv.setAttribute('class','input-group-prepend');
+
+        inputSpan.setAttribute('class', 'input-group-text');
+        inputSpan.setAttribute('id', 'basic-addon1');
+        inputSpan.style['font-size'] = '3vmin';
+        inputSpan.innerHTML = '&#9733;';
+
+        yourReview.setAttribute('class','form-control');
         yourReview.setAttribute('type','number');
+        yourReview.setAttribute('aria-describedby','basic-addon1');
+        //yourReview.setAttribute('placeholder',"?/5");
+        //yourReview.setAttribute('aria-label',"?/5");
         yourReview.setAttribute('min',"1");
         yourReview.setAttribute('max',"5");
         yourReview.setAttribute('id','reviewNum');
+        yourReview.style['font-size'] = '3vmin';
+        yourReview.style['height'] = '4vmin';
+        
+        inputDiv.appendChild(spanDiv);
+        spanDiv.appendChild(inputSpan);
+        inputDiv.appendChild(yourReview);
 
 
         var reviewDescription = document.createElement("input");
         reviewDescription.style['width'] = '24%';
         reviewDescription.style['height'] = '10vmin';
         reviewDescription.style['margin'] = 'auto';
-        reviewDescription.style['margin-bottom'] = '1.5vmin';
+        reviewDescription.style['margin-bottom'] = '3vmin';
         reviewDescription.style['font-size'] = '2vmin';
         reviewDescription.setAttribute('id','reviewDesc');
         reviewDescription.setAttribute('placeholder','Describe your experience:');
@@ -216,9 +241,11 @@
         reviewBtn.style['font-size'] = '2vmin';
         reviewBtn.style['margin-bottom'] = '3vmin';
         reviewBtn.setAttribute('onclick','sendReview()');
+        reviewBtn.setAttribute('class','btn btn-primary');
+        reviewBtn.style['background-color'] = 'rgba(100,149,237,0.75)';
 
         indaModal.appendChild(labeDog);
-        indaModal.appendChild(yourReview);
+        indaModal.appendChild(inputDiv);
         indaModal.appendChild(reviewDescription);
         indaModal.appendChild(reviewBtn);
         
