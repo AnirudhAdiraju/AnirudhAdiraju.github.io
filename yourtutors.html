@@ -374,9 +374,15 @@
 
             li.appendChild(document.createElement("br"));
             var p = document.createElement("p");
-            p.appendChild(document.createTextNode(averagestar(x.reviews)+' \u2B50' ))
+            if(x.reviews == ''){
+              p.appendChild(document.createTextNode( 'No Reviews!' ))
+            }
+            else{
+              console.log(x.reviews)
+              p.appendChild(document.createTextNode(averagestar(x.reviews)+' \u2B50' ))
             
-            p.setAttribute('onclick',"allreviews("+JSON.stringify(x.reviews)+")")
+              p.setAttribute('onclick',"allreviews("+JSON.stringify(x.reviews)+")")
+            }
             li.appendChild(p);
 
             ul.appendChild(li);
@@ -398,7 +404,7 @@
           reviews = JSON.parse(reviews)
           var total = 0;
           for(var i =0; i<reviews.length;i++){
-            total += parseInt(reviews[i].stars)
+            total += parseFloat(reviews[i].stars)
             console.log(total)
           }
           return (total/reviews.length).toFixed('2')

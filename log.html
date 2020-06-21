@@ -174,17 +174,12 @@
       <ul class="nav">
         <img id = "bruhshutupani" src = "https://docs.google.com/drawings/d/e/2PACX-1vS-8fUa0xwfel7p5KClUGWZD7sJJlxsQSoVi71wFozIucH0UmIZcaqR0ARdVUsPcIlNhD16cuTjCLNR/pub?w=1244&h=323">
         <li class="nav-item">
-          <a clas="nav-link" hss="nav-link active" href="#">Your Tutors</a>
+          <a clas="nav-link" hss="nav-link active" href="students.html">Your Students</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" href="profile.html">Profile</a>
         </li>
-        <li class="nav-item">
-          <a clasref="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Disabled</a>
-        </li>
+
       </ul>
     </div>
     
@@ -197,7 +192,7 @@
       <label>Hours:</label><br>
       <input id="hoursInput" type="number"></input><br>
       <label>Description:</label><br>
-      <span id="descInput" class="textarea" role="textbox" contenteditable></span><br>
+      <input id="descInput" class="textarea" role="textbox" contenteditable></inpur><br>
       <button id="submitBtn" onclick="logTutors()">Submit</button>
     </div>  
 
@@ -206,22 +201,30 @@
 
     <script>  
       function logTutors() {
-        var student = document.getElementById("studentInput");
-        var subject = document.getElementById("subjectInput");
-        var hours = document.getElementById("hoursInput");
-        var description = document.getElementById("descInput");
+        var uname = sessionStorage.getItem("usernamea")
+        var student = document.getElementById("studentInput").value;
+        var subject = document.getElementById("subjectInput").value;
+        var hours = document.getElementById("hoursInput").value;
+        var description = document.getElementById("descInput").value;
         const Http = new XMLHttpRequest();
         const url ='https://script.google.com/macros/s/AKfycbzMxHnjjPKcUcb2ffDyef10slO3-E9GtxPXG5k_EvJv1Jdod3E/exec';
-        var data = "?user=monkeybruh"+"&student="+student.value+"&subject="+subject.value+"&hours="+hours.value+"&description="+description.value+"?action=AddNewLog";
+        var data = "?username="+uname+"&student="+student+"&subject="+subject+"&hours="+hours+"&description="+description+"&action=loghour";
         Http.open("GET", String(url+data));
         Http.send();
         Http.onreadystatechange = (e) => {
              
-              console.log(Http.readyState);
+            ok = Http.responseText;
               
             if (Http.readyState == 4)
             {
-                alert("Your log has been recorded!");
+                if(String(ok)=='false'){
+                  alert('Server Error')
+                }
+                else{
+                  console.log(ok)
+                  sessionStorage.setItem('logs',ok)
+                  alert("Succesfully logged")
+                }
             }
           }
 
