@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
+    <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet">
+
+
+<meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Custom fonts for this template -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900"
+      rel="stylesheet"
+    />
+    <link
+  href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet"
+    />
+
+    <!-- Custom styles for this template -->
+    <link href="style.css" rel="stylesheet" />
+    <link
+      href="https://unpkg.com/aos@2.3.1/dist/aos.css"
+      rel="stylesheet"
+    />
+  <style>
+      html{
+          height: 100%;
+        }
+        * {
+            font-family: "Work Sans", "Montserrat";
+        }
+      body{
+        font-family: 'Orienta', open sans;
+        font-family: "Montserrat";
+        height:100%;
+        background-image: url(https://wallpaperaccess.com/full/1630430.jpg); /*linear-gradient(to right, rgba(70, 100, 200, .75), rgba(180, 100, 180, .75))*/
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        color: seaShell;
+        position: relative;
+        text-align: center;
+        background-attachment: fixed;
+      }
+      #navbar{
+         background: rgba(0, 0, 0, 0.7);
+         color: white;
+       }
+       a{
+         color: white;
+         font-size: 3vmin;
+       }
+      
+      .nav-item{
+        right: 0px;
+        
+      }
+
+      .ml-auto{
+        left: auto !important;
+        right: 0px;
+      }
+      #bruhshutupani {
+        margin-top: 1.5rem;
+        margin-left: 3rem;
+        margin-bottom: 20px;
+        margin-right: 20px;
+        opacity: 80%;
+        width: 20vmin;
+      }
+      .mainBod{
+        content: "";
+        display: table;
+        clear: both;
+        margin: auto;
+        width: 100%;
+        padding: 10px;
+        display: grid;
+        grid-template-columns: auto auto;
+        border-radius: 5px;
+        column-gap: 1rem;
+        font-size: 2.5vmin;
+        color: gainsboro;
+      }
+      #bigBod{
+        margin-top: 8vh;
+        background-color: rgba(55,53, 77,.75);
+        margin-left: auto;
+        margin-right: auto;
+        width: 80%;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      .left-side{
+        background: rgba(55,53, 77,.75);
+        border-radius: 5px;
+        padding: 3px;
+        width: 100%;
+        height: 50vmin;
+      }
+      .right-side{
+        background: rgba(55,53, 77,.75);
+        border-radius: 5px;
+        padding: 3px;
+        overflow: auto;
+        width: 100%;
+        height: 50vmin;
+      }
+      .titles{
+        font-size: 4vmin;
+        color: white;
+      }
+      .totalHours{
+        padding-right: 5px;
+      }
+      ul{
+        list-style: none;
+      }
+      #badge-list{
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        
+      }
+      #badge-item{
+          display: inline;
+          padding: 10px;
+      }
+      #invader{
+        display: inline;
+        padding: 10px;
+        opacity: .1;
+      }
+      #star{
+        display: inline;
+        padding: 10px;
+        opacity: .1;
+      }
+      #nerd{
+        display: inline;
+        padding: 10px;
+        opacity: .1;
+      }
+      #clap{
+        display: inline;
+        padding: 10px;
+        opacity: .1;
+      }
+      #glove{
+        display: inline;
+        padding: 10px;
+        opacity: .1;
+      }
+      #trophy{
+        display: inline;
+        padding: 10px;
+        opacity: .1;
+      }
+      #badges{
+        font-size: 3vmin;
+      }
+      .list-group {
+        color: white;
+        height: 30vmin;
+      }
+      .list-group-item {
+        background: rgba(55,53, 77,0);
+        border-color:rgba(140,140,140,.75);
+      }
+      b {
+        font-size: 7vmin;
+      }
+      label {
+        font-size: 3vmin;
+        font-weight: 300;
+      }
+      h4 {
+        margin-top: 2vmin;
+      }
+  </style>
+
+  </head>
+
+  <body>
+    <div id="navbar" class ="ml-auto">
+      <ul class="nav">
+        <img id = "bruhshutupani" src = "https://docs.google.com/drawings/d/e/2PACX-1vS-8fUa0xwfel7p5KClUGWZD7sJJlxsQSoVi71wFozIucH0UmIZcaqR0ARdVUsPcIlNhD16cuTjCLNR/pub?w=1244&h=323">
+        <li class="nav-item ">
+          <a class="nav-link active" href="#">Your Tutors</a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="#">Disabled</a>
+        </li>
+      </ul>
+    </div>
+    <div id="bigBod">
+      <div class="mainBod">
+        <div class="left-side">
+          <h4 class ="titles">Username</h5>
+          <label style="margin-top: 4vmin" class="totalHours" id = "total">Total Hours: </label><label class="numberOfHours"> </label>
+          <br>
+          <label id = "rating">Rating: </label>
+          <br>
+          <label id ="students"># of Students Helped: </label>
+        </div>
+        <div class="right-side">
+          <label class ="titles">Logs:</label>
+          <!--logs go here-->
+          <ul class="list-group" id="logs"></ul>
+        </div>
+      </div>
+      <div id="badges">
+        <label>Badges:</label>
+        <ul id="badge-list">
+              <li id="badge-item"><b onclick = "badgeOne()"id="trophy">🏆</b></li>
+              <li id="badge-item"><b onclick = "badgeTwo()" id="glove">🥊</b></li>
+              <li id="badge-item"><b onclick = "badgeThree()" id="clap">👏</b></li>
+              <li id="badge-item"><b onclick = "badgeFour()" id="nerd">🤓</b></li>
+              <li id="badge-item"><b onclick = "badgeSix()" id="star">🌟</b></li>
+              <li id="badge-item"><b onclick = "badgeFive()" id="invader">👾</b></li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
+<script>
+
+  var list = JSON.parse(sessionStorage.getItem("logs"))
+  var reviews = list.pop()
+  reviews = JSON.parse(reviews)
+
+  var hours = 0;
+  var peoplehelped = list.length;
+  var totalstars = 0;
+  var allrev = ''
+  for(i=0;i<list.length;i++) {
+    addLog(list[i].student , list[i].subject , list[i].hours , list[i].desc);
+    hours += parseFloat(list[i].hours)
+  }
+
+  for(r=0;r<reviews.length;r++){
+    totalstars += parseFloat(reviews[r].stars)
+
+    allrev += reviews[r].stars+" Stars: "+reviews[r].review+"\n"
+  }
+  document.getElementById('total').innerHTML = "Total Hours: "+hours
+  document.getElementById('students').innerHTML = "# of Students Helped: "+peoplehelped
+  document.getElementById('rating').innerHTML = "Rating: "+(totalstars/reviews.length)+"\u2B50"
+  document.getElementById('rating').setAttribute('onclick','allreviews()')
+  
+
+  console.log(allrev)
+  function addLog(name, sub, hours, desc) {
+    var ul = document.getElementById("logs");
+    var li = document.createElement("li");
+    var innerTxt = document.createElement("p");
+    var lowerTxt = document.createElement("p");
+    var descTxt = document.createElement("p");
+
+    innerTxt.style['font-weight'] = 600;
+
+    innerTxt.innerHTML = "Helped " + name + " with " + sub;
+    lowerTxt.innerHTML = hours + " hour(s)";
+    descTxt.innerHTML = desc;
+    li.setAttribute('class','list-group-item');
+
+    li.appendChild(innerTxt);
+    li.appendChild(lowerTxt);
+    li.appendChild(descTxt);
+    ul.appendChild(li);
+  }
+
+  function allreviews(){
+    alert(allrev)
+  }
+
+  function badgeOne(){
+    alert("You need 10 hours of tutoring to unlock this badge");
+  }
+  function badgeTwo(){
+    alert("You need 25 hours of tutoring to unlock this badge");
+  }
+  function badgeThree(){
+    alert("You need 50 hours of tutoring to unlock this badge");
+  }
+  function badgeFour(){
+    alert("You need 100 hours of tutoring to unlock this badge");
+  }
+  function badgeFive(){
+    alert("You need to tutor 10 people to receive this badge");
+  }
+  function badgeSix(){
+    alert("You need to get a 5 star rating to receive this badge");
+  }
+
+  if(hours>=10){
+    revealBadgeOne()
+  }
+  if(hours>=25){
+    revealBadgeTwo()
+  }
+  if(hours>=50){
+    revealBadgeThree()
+  }
+  if(hours>=100){
+    revealBadgeFour()
+  }
+  if((totalstars/reviews.length)){
+    revealBadgeSix()
+  }
+  if(peoplehelped>10){
+    revealBadgeFive()
+  }
+  function revealBadgeOne(){
+    document.getElementsByName("trophy").style
+  }
+  function revealBadgeTwo(){
+    document.getElementById("glove").style.opacity='1'
+  }
+  function revealBadgeThree(){
+    document.getElementById("clap").style.opacity='1'
+  }
+  function revealBadgeFour(){
+    document.getElementById("nerd").style.opacity='1'
+  }
+  function revealBadgeFive(){
+    document.getElementById("invader").style.opacity='1'
+  }
+  function revealBadgeSix(){
+    document.getElementById("star").style.opacity='1'
+  }
+
+</script>

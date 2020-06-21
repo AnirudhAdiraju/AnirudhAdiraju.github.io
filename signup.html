@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            text-align: center;
+            font-family: "Montserrat";
+        }
+      html{
+        height:100%;
+      }
+      body{
+        font-family: 'Orienta', open sans;
+        font-family: "Montserrat";
+        height:100%;
+        background-image: url(https://wallpaperaccess.com/full/1630430.jpg); /*linear-gradient(to right, rgba(70, 100, 200, .75), rgba(180, 100, 180, .75))*/
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        color: seaShell;
+        position: relative;
+        text-align: center;
+        background-attachment: fixed;
+      }
+    #mainBod{
+      margin-top: 10vh;
+      position: relative;
+      text-align: center;
+    }
+    #item{
+      font-size: 3vmin;
+      color: white;
+      background-color: rgba(55,53, 77);
+      margin-left:20%;
+      margin-right:20%;
+      border-radius: 10px;
+      padding-top: 20px;
+      opacity: 70%;
+    }
+    input{
+      background-color: rgba(0,0,0,0);
+      border-style: none;
+      border-bottom-style: solid;
+      border-color: white;
+      border-width: 2px;
+      outline-style: none;
+      width: 35vw;
+      max-width: 40%;
+    }
+    input:hover{
+      border-color: gainsboro;
+    }
+    #bruhshutupani {
+      opacity: 80%;
+      width: 25vw;
+      margin-top:3vh;
+      margin-bottom: 4vh;
+    }
+    button{
+      margin-bottom: 1vh;
+      margin-top: 2vh;
+      font-size: 3.5vmin;
+      border-radius: 5px;
+      border-style: none;
+      background-color:#404584;
+      color: white;
+      outline-style: none;
+    }
+    button:hover{
+      background-color: rgba(42, 82, 190,.9);
+      color: gainsboro;
+    }
+    #tOrL{
+      display: grid;
+      grid-template-columns: 50% 50%;
+      position: relative;
+      text-align: center;
+      height: 100%;
+      margin-left: 15vw;
+      margin-right: 15vw;
+    }
+    #tutorcheck {
+      margin-top: 1vw;
+      margin-bottom: 1vw;
+    }
+    .none{
+      padding-bottom: 2vh;
+    }
+    #login{
+      background-color: Transparent;
+      border-style: none;
+      outline-style: none;
+      text-decoration: underline;
+    }
+    #login:hover{
+      color: lightGray;
+    }
+    
+    </style>
+
+  </head>
+  <body>
+    <div id="mainBod">
+      <img id = "bruhshutupani" src = "https://docs.google.com/drawings/d/e/2PACX-1vTknXUPKcLaiNAV3ft95iUIxPGONunm9TrVLgqCvEyZv12UMPQJX3u9nQX3x4VU6r7TOj_WvNtKkzYL/pub?w=415&h=115">
+      <div id= "item">
+        <label><b>USERNAME:</b></label>
+        <br>
+        <input type ="text" id = "username">
+        <br>
+        <br>
+        <label><b>PASSWORD:</b></label>
+        <br>
+        <input type ="password" id = "password">
+        <br>
+        <br>
+        <p><b>Would you like to teach or learn?</b></p>
+        <div id="tOrL">
+          <div id="teacher">
+            <input type="radio" onclick="tutorcheck()" id="teach" name="option" value="teach">
+            <br>
+            <label for="teach">Teach</label>
+          </div>
+          <div id="learner">
+            <input type="radio" onclick="tutorcheck()" id="learn" name="option" value="learn">
+            <br>
+            <label for="learn">Learn</label>
+          </div>
+        </div>
+        <div id="tutorcheck" style="display:none">
+
+          What subjects can you teach? <input type='text' id='subj' name='subj'>
+          
+        </div>
+        
+        <button onclick="signup()"><b>SIGN UP</b></button>
+        <br>
+      <div class = "none">
+        <label>Already have an account?</label>
+        <button id = "login" onclick="transport()">Login</button>
+      </div>
+      </div>
+    </div>
+      <script>
+      
+        function transport(){
+          window.location = "login.html"
+        }
+        
+        function tutorcheck() {
+          if (document.getElementById('teach').checked) {
+            document.getElementById('tutorcheck').style.display = 'block';
+          }
+          else{
+            document.getElementById('tutorcheck').style.display = 'none';
+            document.getElementById('subj').value = " ";
+          } 
+        
+        }
+  
+  
+        function signup(){
+          var uname = document.getElementById("username").value;
+          var pword = document.getElementById("password").value;
+          var subjects = document.getElementById("subj").value.split(',');
+          if (document.getElementById('teach').checked) {
+            var role = 'tutor';
+          }
+          else{
+            var role = 'student';
+            
+          }
+
+          const Http = new XMLHttpRequest();
+          const url='https://script.google.com/macros/s/AKfycbzMxHnjjPKcUcb2ffDyef10slO3-E9GtxPXG5k_EvJv1Jdod3E/exec';
+          var data = "?username="+uname+"&password="+pword+"&subjects="+subjects+"&role="+role+"&action=signup";
+          Http.open("GET", String(url+data));
+          Http.send();
+  
+          Http.onreadystatechange = (e) => {
+              ok = Http.responseText;
+              console.log(String(ok));
+              console.log(Http.readyState);
+          if (Http.readyState == 4)
+          {
+            if(String(ok) == "true"){
+                console.log("truo");
+                alert("Success!");
+                 window.location = "login.html";
+              }
+              else if(String(ok) == 'false'){
+                alert("That username is in use, Please choose another one!");
+              }
+              else{
+                console.log("falso");
+                alert("server error");
+              }
+          }
+          }
+          
+  
+        }
+  
+  
+  
+  
+      </script>
+  </body>
+</html>

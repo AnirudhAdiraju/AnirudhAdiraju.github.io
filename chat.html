@@ -1,0 +1,290 @@
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-app.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-database.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCy1ulutbac1_wHsMkKTL5mT2TdKfzLwsE",
+    authDomain: "summit-df3ac.firebaseapp.com",
+    databaseURL: "https://summit-df3ac.firebaseio.com",
+    projectId: "summit-df3ac",
+    storageBucket: "summit-df3ac.appspot.com",
+    messagingSenderId: "933187357380",
+    appId: "1:933187357380:web:4b7b89b2ebbb3178395791",
+    measurementId: "G-5E6S4F8DMB"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+
+  var myName = sessionStorage.getItem('usernamea')
+  if(sessionStorage.getItem("role")=="student"){
+    var student = myName
+    var tutor = sessionStorage.getItem('otherchatter')
+  }
+  else{
+    var student = sessionStorage.getItem('otherchatter')
+    var tutor = myName
+  }
+  
+</script>
+<script>
+
+  // listen for incoming messages
+  firebase.database().ref(student+tutor).on("child_added", function (snapshot) {
+      console.log(snapshot.val().sender)
+      if(snapshot.val().sender == myName){
+          appendMessage(myName,"https://image.flaticon.com/icons/svg/2919/2919600.svg","right",snapshot.val().message)
+      }
+      else{
+          appendMessage(snapshot.val().sender,"https://image.flaticon.com/icons/svg/2919/2919600.svg","left",snapshot.val().message)
+      }
+
+
+  });
+</script>
+<style>
+    :root {
+    --body-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    --msger-bg: #fff;
+    --border: 2px solid #ddd;
+    --left-msg-bg: #ececec;
+    --right-msg-bg: #579ffb;
+    }
+
+    html {
+    box-sizing: border-box;
+    height: 100%;
+    }
+
+    *,
+    *:before,
+    *:after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+    }
+
+    body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Montserrat, sans-serif;
+    background-image: url(https://wallpaperaccess.com/full/1630430.jpg); ;
+    background-size: 100% 100%;
+    }
+
+    .msger {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 867px;
+    margin: 25px 10px;
+    height: calc(100% - 50px);
+    border: var(--border);
+    border-radius: 5px;
+    background: rgba(55,53, 77, .75);
+    border-color: rgba(100,100,100,.75);
+    }
+
+    .msger-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-style: none;
+    background: rgba(55,53, 77, 1);
+    color: #666;
+    }
+
+    .msger-chat {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    }
+    .msger-chat::-webkit-scrollbar {
+    width: 6px;
+    }
+    .msger-chat::-webkit-scrollbar-track {
+    background: rgba(55,53, 77, .25);
+    }
+    .msger-chat::-webkit-scrollbar-thumb {
+    background: rgba(100,100,100,.25);
+    }
+    .msg {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 10px;
+    }
+    .msg:last-of-type {
+    margin: 0;
+    }
+    .msg-img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    background: #ddd;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+    }
+    .msg-bubble {
+    max-width: 450px;
+    padding: 15px;
+    border-radius: 15px;
+    background: rgba(128,128,128,.75);
+    }
+    .msg-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+
+    }
+    .msg-info-name {
+    margin-right: 10px;
+    font-weight: bold;
+    }
+    .msg-info-time {
+    font-size: 0.85em;
+    }
+
+    .left-msg .msg-bubble {
+    border-bottom-left-radius: 0;
+    }
+    .left-msg{
+      color: #fff;
+    }
+
+    .right-msg {
+    flex-direction: row-reverse;
+    color: #fff;
+    }
+    .right-msg .msg-bubble {
+    background: var(--right-msg-bg);
+    border-bottom-right-radius: 0;
+    }
+    .right-msg .msg-img {
+    margin: 0 0 0 10px;
+    }
+
+    .msger-inputarea {
+    display: flex;
+    padding: 10px;
+    border-top: rgba(100,100,100,.75);
+    border-top-style: solid;
+    border-top-width: 1px;
+    background: rgba(55,53, 77, 1);
+    color: #fff;
+    }
+    .msger-inputarea * {
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    font-size: 1em;
+    }
+    .msger-input {
+    flex: 1;
+    background: rgba(40,38, 62);
+    }
+    .msger-send-btn {
+    margin-left: 10px;
+    font-size: 3vmin;
+    border-radius: 5px;
+    border-style: none;
+    background-color:rgba(42, 82, 190,.75);
+    color: gainsboro;
+    outline-style: none;
+    cursor: pointer;
+    transition: background 0.23s;
+    font-family: 'Montserrat', sans-serif;
+    font-style: bold;
+    }
+    .msger-send-btn:hover {
+    background-color: rgba(42, 82, 190,.9);
+    color: gainsboro;
+    }
+
+    #bruhshutupani {
+      opacity: 80%;
+      width: 15vw;
+    }
+</style>
+     
+<script>
+document.getElementsByClassName("msger-chat");
+    function sendMessage() {
+
+        var message = document.getElementById("message").value;
+ 
+
+        firebase.database().ref(student+tutor).push().set({
+            "sender": myName,
+            "message": message
+        });
+ 
+
+    }
+    function appendMessage(name, img, side, text) {
+
+      const msgHTML = `
+        <div class="msg ${side}-msg">
+          <div class="msg-img" style="background-image: url(${img})"></div>
+          <div class="msg-bubble">
+            <div class="msg-info">
+              <div class="msg-info-name">${name}</div>
+            </div>
+            <div class="msg-text">${text}</div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById("messages").innerHTML += msgHTML;
+
+    }
+    function home(){
+      if(sessionStorage.getItem("role")=="student"){
+        window.location = "yourtutors.html"
+      }
+      else{
+        window.location = "students.html"
+      }
+    }
+</script>
+<section class="msger">
+    <header class="msger-header">
+      <div class="msger-header-title">
+        <i class="fas fa-comment-alt"></i> 
+        <img onclick = "home()"id = "logo" src = "https://docs.google.com/drawings/d/e/2PACX-1vTknXUPKcLaiNAV3ft95iUIxPGONunm9TrVLgqCvEyZv12UMPQJX3u9nQX3x4VU6r7TOj_WvNtKkzYL/pub?w=415&h=115">
+      </div>
+      <div class="msger-header-options">
+        <span><i class="fas fa-cog"></i></span>
+      </div>
+    </header>
+  
+    <main class="msger-chat" id = "messages">
+      <div class="msg left-msg">
+
+      </div>
+  
+      <div class="msg right-msg">
+
+      </div>
+    </main>
+  
+    <div class="msger-inputarea" >
+      <input type="text" class="msger-input" id = "message" placeholder="Enter your message...">
+      <button onclick = "sendMessage()" class="msger-send-btn">Send</button>
+    </div>
+  </section>

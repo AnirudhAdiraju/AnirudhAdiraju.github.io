@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      * {
+          font-family: "Montserrat"
+      }
+      html{
+        height:100%;
+      }
+      body{
+        font-family: 'Orienta', open sans;
+        font-family: "Montserrat";
+        height:100%;
+        background-image: url(https://wallpaperaccess.com/full/1630430.jpg); /*linear-gradient(to right, rgba(70, 100, 200, .75), rgba(180, 100, 180, .75))*/
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        color: seaShell;
+        position: relative;
+        text-align: center;
+        background-attachment: fixed;
+      }
+    #mainBod{
+      margin-top: 15vh;
+      position: relatve;
+      text-align: center;
+    }
+    #item{
+      font-size: 3vmin;
+      color: white;
+      background-color: rgba(55,53,77);
+      margin-left:20%;
+      margin-right:20%;
+      border-radius: 10px;
+      padding-top: 20px;
+      opacity: 70%;
+    }
+
+    label {
+      font-family: "Montserrat";
+    }
+    input{
+      background-color: Transparent;
+      border-style: none;
+      border-bottom-style: solid;
+      border-color: rgba(255, 245, 238, .75);
+      border-width: 2px;
+      outline-style: none;
+      width: 35vw;
+      max-width: 40%;
+    }
+    input:hover{
+      border-color: rgba(206,206,206,1);
+    }
+    img{
+      width: 25vw;
+      margin-top:3vh;
+      margin-bottom: 4vh;
+    }
+    .log{
+      font-size: 3.5vmin;
+      border-radius: 5px;
+      margin-bottom: 2vh;
+      border-style: none;
+      background-color:rgba(42, 82, 190,0.6);
+      color: white;
+      outline-style: none;
+    }
+    button:hover{
+      background-color: rgba(42, 82, 190,.9);
+      color: gainsboro;
+    }
+    .none{
+      margin-top: -.5vh;
+    }
+    #signup{
+      background-color: Transparent;
+      border-style: none;
+      outline-style: none;
+      text-decoration: underline;
+    }
+    #signup:hover{
+      color: lightGray;
+    }
+  </style>
+
+  </head>
+  <body>
+    <div id = "mainBod">
+      <img src = "https://docs.google.com/drawings/d/e/2PACX-1vTknXUPKcLaiNAV3ft95iUIxPGONunm9TrVLgqCvEyZv12UMPQJX3u9nQX3x4VU6r7TOj_WvNtKkzYL/pub?w=415&h=115">
+
+    <div id = "item">
+      <label class="wText"><b>USERNAME:</b></label><br>
+      <input type ="text" id = "username">
+      <br>
+      <br>
+      <label class="wText"><b>PASSWORD:</b></label><br>
+      <input type ="password" id = "password">
+      <br>
+      <br>
+      <button class = "log" onclick = "logIn()" ><b>LOGIN</b></button>
+      <br>
+      <div class = "none">
+        <label>Don't have an account?</label>
+        <button id = "signup" onclick="nav()">Sign Up</button>
+      </div>
+      <br>
+      
+    </div>
+    </div>
+  
+    <script>
+      
+
+      var ok = false;
+
+      
+
+
+
+      function logIn(){
+        var uname = document.getElementById("username").value;
+        var pword = document.getElementById("password").value;
+        const Http = new XMLHttpRequest();
+        const url='https://script.google.com/macros/s/AKfycbzMxHnjjPKcUcb2ffDyef10slO3-E9GtxPXG5k_EvJv1Jdod3E/exec';
+        var data = "?username="+uname+"&password="+pword+"&action=login";
+        Http.open("GET", String(url+data));
+        Http.send();
+
+        Http.onreadystatechange = (e) => {
+            ok = Http.responseText;
+            console.log(String(ok));
+            console.log(Http.readyState);
+        if (Http.readyState == 4)
+        {
+          if(ok.substring(0,8) == "student,"){
+              var stuff = JSON.parse(ok.substring(8,ok.length))
+              sessionStorage.setItem("alltutors",stuff[0])
+              sessionStorage.setItem("specifictutors",stuff[1])
+              console.log(sessionStorage.getItem("alltutors"))
+              sessionStorage.setItem("role","student")
+              sessionStorage.setItem("usernamea",uname);
+              alert("Success!");
+ 
+               window.location = "learn.html";
+            }
+            else if(ok.substring(0,6) == "tutor,"){
+              var stuff = JSON.parse(ok.substring(6,ok.length))
+              sessionStorage.setItem("students",stuff[0])
+              sessionStorage.setItem("logs",stuff[1])
+              sessionStorage.setItem("role","tutor")
+              sessionStorage.setItem("usernamea",uname);
+              alert("Success!");
+              window.location = "students.html"
+            }
+            else{
+              alert("Failed Login. Please retry or create an account")
+            }
+        }
+        }
+        
+
+      }
+
+      function nav(){
+        window.location = "signup.html"
+      }
+
+ 
+
+
+
+
+    </script>
+  </body>
+</html>

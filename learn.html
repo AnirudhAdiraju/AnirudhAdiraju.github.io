@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
+
+
+<meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Propositime</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Custom fonts for this template -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900"
+      rel="stylesheet"
+    />
+    <link
+  href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet"
+    />
+
+    <!-- Custom styles for this template -->
+    <link href="style.css" rel="stylesheet" />
+    <link
+      href="https://unpkg.com/aos@2.3.1/dist/aos.css"
+      rel="stylesheet"
+    />
+
+
+    <style>
+        html{
+          height: 100%;
+        }
+        * {
+            font-family: "Work Sans", "Montserrat";
+        }
+        body{
+          background-image: url(https://wallpaperaccess.com/full/1630430.jpg);
+          background-size: 100% 100%;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-position: center;
+          position: relative;
+        }
+        #bod{
+          margin-top:5%;
+          height: 80vh;
+          overflow: auto;
+          display: flex;
+          flex-direction: column;
+        }
+        .list-group {
+          width: 60vw;
+          margin-top: 0vmin;
+          margin-left: auto;
+          margin-right: auto;
+          margin-bottom: 11vmin;
+          overflow: auto;
+        }
+        #bruhshutupani {
+          margin-top: 1.5rem;
+          margin-left: 3rem;
+          margin-bottom: 20px;
+          margin-right: 20px;
+          opacity: 80%;
+          width: 20vmin;
+        }
+        h3{
+          font-size: 2rem;
+          color: dimGrey;
+          text-align: center;
+          margin-top: -2rem;
+        }
+       #navbar{
+         background: rgba(0, 0, 0, 0.7);
+         color: white;
+       }
+       a{
+         color: white;
+         font-size: 3vmin;
+       }
+      img{
+        margin-top: -40px;
+      }
+      
+      .nav-item{
+        right: 0px;
+        
+      }
+
+      .ml-auto{
+        left: auto !important;
+        right: 0px;
+      }
+      h5{
+        padding: 70px 0;
+        text-align: center;
+        margin-bottom: 80vh;
+        color: gainsboro;
+        font-size: 2rem;
+        background: rgba(0,0,0,.5);
+        padding: 70px 0;
+        text-align: center;
+        margin-left: 20%;
+        margin-right: 20%;
+        border-radius: 5px;
+    }
+
+    </style>
+
+  </head>
+  <body>
+    <div id="navbar" class =" ml-auto">
+      <ul class="nav">
+        <img id = "bruhshutupani" src = "https://docs.google.com/drawings/d/e/2PACX-1vS-8fUa0xwfel7p5KClUGWZD7sJJlxsQSoVi71wFozIucH0UmIZcaqR0ARdVUsPcIlNhD16cuTjCLNR/pub?w=1244&h=323">
+        <li class="nav-item ">
+          <a class="nav-link active" href="yourtutors.html">Your Tutors</a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="read.html">Read</a>
+        </li>
+
+      </ul>
+    </div>
+
+      <div id = "bod">
+        <ul class="list-group" id="dynamic-list"></ul>
+      </div>
+
+    <script>
+        var list = sessionStorage.getItem("alltutors")
+        renderlist(JSON.parse(list))
+
+        function renderlist(list){
+            if(list.length==0){
+                var h5 = document.createElement("h5")
+                h5.innerHTML = "No tutors have signed up. Please wait for tutors to sign up!"
+                document.getElementById("bod").appendChild(h5)
+            }
+            else{
+                for(i = 0;i<list.length;i++) {
+                    addTutor(list[i]);
+                } 
+            }
+
+        }
+
+
+
+        function alertName(x) {
+            alert(x);
+        }
+
+        function addTutor(x) {
+            var ul = document.getElementById("dynamic-list");
+            var li = document.createElement("li");
+            li.style["background-color"] = "rgba(55,53, 77,.75)";
+            li.style["color"] = "white";
+            li.style["border-color"]="rgba(140,140,140,.75)";
+            li.style["font-size"]="3vmin";
+            li.setAttribute('id', x.name);
+            li.setAttribute('class','list-group-item');
+
+            var name = document.createElement("label")
+            name.innerHTML = x.name
+            name.setAttribute('id','nombres')
+            name.style['font-size'] ='3.5vmin';
+            li.appendChild(name)
+            var chaticon = document.createElement('button');
+            chaticon.setAttribute('id', x.name)
+            chaticon.setAttribute('class', 'btn btn-primary')
+            chaticon.setAttribute('onclick','connect(this.id)')
+            chaticon.innerHTML = 	'&#65291; Connect' 
+            chaticon.style["background-color"]="rgba(100,149,237 ,.75 )";
+            chaticon.style["outline"]="none";
+            chaticon.style["border-style"]="none";
+            chaticon.style["position"] = "absolute";
+            chaticon.style["right"]="0";
+            chaticon.style["font-size"]="3vmin";
+            chaticon.style["margin-right"]="2vw";             
+            chaticon.disabled = x.connected;
+
+            li.appendChild(document.createElement("br"));
+            li.appendChild(document.createElement("p").appendChild(document.createTextNode(x.subjects )));
+            li.appendChild(chaticon)
+            li.appendChild(document.createElement("br"));
+            var p = document.createElement("p");
+            if(x.reviews == ''){
+              p.appendChild(document.createTextNode( 'No Reviews!' ))
+            }
+            else{
+              console.log(x.reviews)
+              p.appendChild(document.createTextNode(averagestar(x.reviews)+' \u2B50' ))
+            
+              p.setAttribute('onclick',"allreviews("+JSON.stringify(x.reviews)+")")
+            }
+
+            li.appendChild(p);
+            ul.appendChild(li);
+            
+
+        }
+
+        function connect(x){
+            var uname = sessionStorage.getItem("usernamea")
+            const Http = new XMLHttpRequest();
+            const url='https://script.google.com/macros/s/AKfycbzMxHnjjPKcUcb2ffDyef10slO3-E9GtxPXG5k_EvJv1Jdod3E/exec';
+            var data = "?tutor="+x+"&student="+uname+"&username="+uname+"&action=connect";
+            Http.open("GET", String(url+data));
+            Http.send();
+
+            Http.onreadystatechange = (e) => {
+                ok = Http.responseText;
+
+                ok = String(ok);
+                console.log(ok)
+                if (Http.readyState == 4)
+                {
+                    if(ok.substring(0,5)=="true,"){
+                        var stuff = JSON.parse(ok.substring(5,ok.length))
+                        document.getElementById("dynamic-list").innerHTML = ""
+                        renderlist(JSON.parse(stuff[0]))
+                        sessionStorage.setItem("alltutors",stuff[0])
+                        sessionStorage.setItem("specifictutors",stuff[1])
+                        alert("Succesfully connected!")
+                    }
+                    else{
+
+                        alert("Server error")
+                    }
+                }
+            }
+        }
+        function averagestar(reviews){
+          reviews = JSON.parse(reviews)
+          var total = 0;
+          for(var i =0; i<reviews.length;i++){
+            total += parseFloat(reviews[i].stars)
+            console.log(total)
+          }
+          return (total/reviews.length).toFixed('2')
+        }
+        function allreviews(reviews){
+          var x = ''
+         
+          reviews = JSON.parse(reviews)
+          for(i = 0; i<reviews.length; i++){
+            x += reviews[i].stars+" Stars: "+reviews[i].review+"\n"
+          }
+          alert(x)
+        }
+    </script>
+  </body>
+</html>
