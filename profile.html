@@ -213,7 +213,7 @@
     <div id="bigBod">
       <div class="mainBod">
         <div class="left-side">
-          <h4 class ="titles">Username</h5>
+          <h4 class ="titles" id = "username"></h5>
           <label style="margin-top: 4vmin" class="totalHours" id = "total">Total Hours: </label><label class="numberOfHours"> </label>
           <br>
           <label id = "rating">Rating: </label>
@@ -264,7 +264,7 @@
   document.getElementById('students').innerHTML = "# of Students Helped: "+peoplehelped
   document.getElementById('rating').innerHTML = "Rating: "+(totalstars/reviews.length)+"\u2B50"
   document.getElementById('rating').setAttribute('onclick','allreviews()')
-  
+  document.getElementById('username').innerHTML = sessionStorage.getItem("usernamea")
 
   console.log(allrev)
   function addLog(name, sub, hours, desc) {
@@ -329,7 +329,7 @@
     revealBadgeFive()
   }
   function revealBadgeOne(){
-    document.getElementsByName("trophy").style
+    document.getElementById("trophy").style.opacity = '1'
   }
   function revealBadgeTwo(){
     document.getElementById("glove").style.opacity='1'

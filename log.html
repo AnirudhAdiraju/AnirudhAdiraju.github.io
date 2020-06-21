@@ -211,6 +211,7 @@
         const Http = new XMLHttpRequest();
         const url ='https://script.google.com/macros/s/AKfycbzMxHnjjPKcUcb2ffDyef10slO3-E9GtxPXG5k_EvJv1Jdod3E/exec';
         var data = "?username="+uname+"&student="+student+"&subject="+subject+"&hours="+hours+"&description="+description+"&action=loghour";
+        console.log(data)
         Http.open("GET", String(url+data));
         Http.send();
         Http.onreadystatechange = (e) => {
