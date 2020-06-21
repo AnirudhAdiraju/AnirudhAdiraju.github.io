@@ -134,6 +134,19 @@
       .nav-item{
         float: right;
       }
+      h5{
+        padding: 70px 0;
+        text-align: center;
+        margin-bottom: 80vh;
+        color: gainsboro;
+        font-size: 2rem;
+        background: rgba(0,0,0,.5);
+        padding: 70px 0;
+        text-align: center;
+        margin-left: 20%;
+        margin-right: 20%;
+        border-radius: 5px;
+    }
 
 
     </style>
@@ -144,10 +157,10 @@
       <ul class="nav">
         <img id = "bruhshutupani" src = "https://docs.google.com/drawings/d/e/2PACX-1vS-8fUa0xwfel7p5KClUGWZD7sJJlxsQSoVi71wFozIucH0UmIZcaqR0ARdVUsPcIlNhD16cuTjCLNR/pub?w=1244&h=323">
         <li class="nav-item">
-          <a class="nav-link active" href="#">Log Hours</a>
+          <a class="nav-link active" href="log.html">Log Hours</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Profile</a>
+          <a class="nav-link" href="profile.html">Profile</a>
         </li>
 
       </ul>
@@ -163,9 +176,17 @@
         renderlist(JSON.parse(list))
 
         function renderlist(list){
-            for(i = 0;i<list.length;i++) {
-                addTutor(list[i]);
-            } 
+            if(list.length==0){
+                var h5 = document.createElement("h5")
+                h5.innerHTML = "You have no students. Wait for students to connect with you!"
+                document.getElementById("bod").appendChild(h5)
+            }
+            else{
+                for(i = 0;i<list.length;i++) {
+                    addTutor(list[i]);
+                } 
+            }
+
         }
 
 

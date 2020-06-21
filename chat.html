@@ -253,12 +253,20 @@ document.getElementsByClassName("msger-chat");
       document.getElementById("messages").innerHTML += msgHTML;
 
     }
+    function home(){
+      if(sessionStorage.getItem("role")=="student"){
+        window.location = "yourtutors.html"
+      }
+      else{
+        window.location = "students.html"
+      }
+    }
 </script>
 <section class="msger">
     <header class="msger-header">
       <div class="msger-header-title">
         <i class="fas fa-comment-alt"></i> 
-        <img id = "logo" src = "https://docs.google.com/drawings/d/e/2PACX-1vTknXUPKcLaiNAV3ft95iUIxPGONunm9TrVLgqCvEyZv12UMPQJX3u9nQX3x4VU6r7TOj_WvNtKkzYL/pub?w=415&h=115">
+        <img onclick = "home()"id = "logo" src = "https://docs.google.com/drawings/d/e/2PACX-1vTknXUPKcLaiNAV3ft95iUIxPGONunm9TrVLgqCvEyZv12UMPQJX3u9nQX3x4VU6r7TOj_WvNtKkzYL/pub?w=415&h=115">
       </div>
       <div class="msger-header-options">
         <span><i class="fas fa-cog"></i></span>

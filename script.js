@@ -68,36 +68,35 @@
   
       // show number of correct answers out of total
       resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
+        var student = sessionStorage.getItem('usernamea')
+        var quiz = sessionStorage.getItem("quiz")
+        const Http = new XMLHttpRequest();
+        const url ='https://script.google.com/macros/s/AKfycbzMxHnjjPKcUcb2ffDyef10slO3-E9GtxPXG5k_EvJv1Jdod3E/exec'
+        var data = "?student="+student+"&quiz="+quiz+"&username="+student+"&action=finishquiz";
+        Http.open("GET", String(url+data));
+        Http.send();
+            Http.onreadystatechange = (e) => {
+              ok = Http.responseText;
+              console.log(String(ok))
+              console.log(Http.readyState);
+              
+            if (Http.readyState == 4)
+            {
+                if(String(ok)=='false'){
+                  alert('Server Error')
+
+                }
+                else{
+                  sessionStorage.setItem("specifictutors",ok)
+                  alert('Quiz Done!')
+                  console.log(ok)
+                  window.location = "yourtutors.html"
+                }
+            }
+          }
     }
   
-    /* const Http = new XMLHttpRequest();
-      const url ='https://script.google.com/macros/s/AKfycbzVgaFEmUfvq52prjdGPU4-4ieUOvWV-IwHYDBlj7me64GIHUc/exec?action=GetTheQuiz';
-      var data = "?tutor="+tutor+"&student="+student+"&quiz="+quiz;
-      Http.open("GET", String(url+data));
-      Http.send();
-  
-      Http.onreadystatechange = (e) => {
-       var rt = Http.responseText;
-       var papi = true;
-      if(Http.readyState == 4)
-      {
-        if(String(rt.substring(0,rt.length)) == String(quiz))
-        {
-          //Change this so it parses the data or whatever you said you wanted to change it to
-          // ----> this is what I mean. Probably not even neccessary though. global.data = JSON.parse(rt.substring(5,rt.length));
-          console.log("works");
-          alert("Success!");
-          // this.props.navigation.replace('Main');
-          
-  
-        }
-        else
-        {
-          console.log("failed.");
-          alert("Failed.");
-        }
-      }
-      }*/
+
   
     var quizContainer = document.getElementById('quiz');
     var resultsContainer = document.getElementById('results');
