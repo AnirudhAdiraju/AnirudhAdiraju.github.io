@@ -244,7 +244,7 @@
 
   var list = JSON.parse(sessionStorage.getItem("logs"))
   var reviews = list.pop()
-  reviews = JSON.parse(reviews)
+
 
   var hours = 0;
   var peoplehelped = list.length;
@@ -262,7 +262,14 @@
   }
   document.getElementById('total').innerHTML = "Total Hours: "+hours
   document.getElementById('students').innerHTML = "# of Students Helped: "+peoplehelped
-  document.getElementById('rating').innerHTML = "Rating: "+(totalstars/reviews.length)+"\u2B50"
+  if(reviews.length==0){
+    document.getElementById('rating').innerHTML = "Rating: No Reviews Yet!"
+
+  }
+  else{
+    document.getElementById('rating').innerHTML = "Rating: "+(totalstars/reviews.length)+"\u2B50"
+
+  }
   document.getElementById('rating').setAttribute('onclick','allreviews()')
   document.getElementById('username').innerHTML = sessionStorage.getItem("usernamea")
 
